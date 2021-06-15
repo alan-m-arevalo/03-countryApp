@@ -1,0 +1,25 @@
+<div class="animate__animated animate__fadeIn">
+    <h2>Search by capital</h2>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <app-search 
+                placeHolder = "Search by capital..."
+                (onSearch)="search( $event);"
+                (onDebounde)="suggestions( $event);"
+            ></app-search>
+        </div>
+    </div>
+    <div *ngIf="hasErrror;" class="alert alert-danger">
+        No match found with {{searchQuery}}
+    </div>
+</div>
+
+
+
+<div class="row" *ngIf="!hasErrror && countries.length > 0">
+    <div class="col">
+        <app-country-table [countries]="countries"></app-country-table>
+    </div>
+</div>
+

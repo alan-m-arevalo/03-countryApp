@@ -1,0 +1,41 @@
+<div class="animate__animated animate__fadeIn">
+    <h2>Search by country</h2>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <app-search 
+                placeHolder = "Search by country..."
+                (onSearch)="search( $event);"
+                (onDebounde)="suggestions( $event);"
+            ></app-search>
+        </div>
+    </div>
+    
+    <ul *ngIf="showSuggestions "  class="list-group">
+        <li class="list-group-item list-group-item-action"
+            *ngFor="let item of countriesSuggestions" >
+            <a class="nav-link"
+                [routerLink]="['/details',item.alpha2Code]"> 
+                {{item.name}}
+            </a>
+        </li>
+        <li 
+            class="list-group-item list-group-item-action"
+            (click)="searchSuggestion();">
+            <a class="nav-link" > 
+                Search "{{searchQuery}}"
+            </a>
+        </li>
+        
+    </ul>
+    <div *ngIf="hasErrror;" class="alert alert-danger">
+        No match found with {{searchQuery}}
+    </div>
+</div>
+
+<div class="row" *ngIf="!hasErrror && countries.length > 0">
+    <div class="col">
+        <app-country-table [countries]="countries"></app-country-table>
+    </div>
+</div>
+
